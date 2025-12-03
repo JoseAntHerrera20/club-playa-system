@@ -11,14 +11,16 @@ const app = express();
 // =========================
 // CORS CONFIGURADO PARA FRONTEND
 // =========================
-app.use(cors({
+const corsOptions = {
   origin: 'https://jolly-water-0b1eea10f.3.azurestaticapps.net', // tu frontend
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
-}));
+};
+
+app.use(cors(corsOptions));
 
 // Habilitar preflight para todas las rutas
-app.options('*', cors());
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 
