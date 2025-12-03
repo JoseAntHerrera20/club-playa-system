@@ -1,7 +1,5 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - clubplaya-backend
+# Docs: https://github.com/Azure/webapps-deploy
+name: Build and deploy Node.js app to Azure Web App - clubplaya-backend2
 
 on:
   push:
@@ -13,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -24,17 +22,18 @@ jobs:
           node-version: '20.x'
 
       - name: Install dependencies
+        working-directory: backend
         run: |
-          cd backend
           npm install
           npm run build --if-present
-          npm run test --if-present
+          # omitimos test porque no hay definidos
+          # npm run test --if-present
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: backend/*
+          path: backend # Subimos solo la carpeta backend como paquete
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,12 +43,12 @@ jobs:
       contents: read
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: node-app
 
-      - name: Login to Azure
+      - name: Azure login
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_023F4F4648FA4987905A8C05A215CA45 }}
@@ -57,8 +56,9 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4B6C223975A340148C5B72EA4DF05FAA }}
 
       - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'clubplaya-backend2'
           slot-name: 'Production'
-          package: node-app
+          package: node-app # apunta a la carpeta que subimos
