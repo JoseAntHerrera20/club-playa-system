@@ -1,0 +1,51 @@
+# Build and deploy Node.js app to Azure Web App - clubplaya-backend
+# Adaptado a la estructura club-playa-system/backend
+
+name: Build and deploy Node.js app to Azure Web App - clubplaya-backend
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # ¡CORRECCIÓN CLAVE!: Necesario para la autenticación OIDC con Azure
+
+    steps:
+      # 1️⃣ Checkout del repositorio
+      - uses: actions/checkout@v4
+
+      # 2️⃣ Configurar Node.js
+      - name: Set up Node.js 20 LTS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      # 3️⃣ Instalar dependencias
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm install
+          
+      # 4️⃣ Login a Azure usando Service Principal
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          auth-type: 'SERVICE_PRINCIPAL'
+          # Usamos los nombres exactos de tus secrets con el sufijo:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7CACEB3970C44C6D96C582D8130DC290 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_57394EE377C64C198FD25F87705E85F4 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B83A8225E21E4F14B34F98D1C664FBE4 }}
+
+      # 5️⃣ Deploy a Azure Web App
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'clubplaya-backend' # nombre de tu app en Azure
+          slot-name: 'Production'
+          package: './backend'           # carpeta donde está package.json

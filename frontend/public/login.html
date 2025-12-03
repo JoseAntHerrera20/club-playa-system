@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club de Playa - Acceso</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('img/palapa.jpg') no-repeat center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    .login-container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      color: #007bff;
+    }
+
+    .login-container input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .login-container button {
+      width: 95%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-container button:hover { background: #0056b3; }
+
+    .login-container .message {
+      margin-top: 10px;
+      color: red;
+      font-weight: bold;
+      min-height: 20px;
+    }
+
+    @media(max-width: 500px){
+      .login-container { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Acceder / Registrarse</h2>
+    <input type="email" id="email" placeholder="Correo electrónico">
+    <input type="password" id="password" placeholder="Contraseña">
+
+    <button id="btnRegistro">Registrarse</button>
+    <button id="btnLogin">Iniciar sesión</button>
+
+    <p class="message" id="authMensaje"></p>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    // Si ya hay token, ir directo al mapa
+    document.addEventListener('DOMContentLoaded', () => {
+      if (obtenerToken()) {
+        window.location.href = 'mapa.html';
+      }
+    });
+
+    document.getElementById('btnRegistro').addEventListener('click', registrarse);
+    document.getElementById('btnLogin').addEventListener('click', iniciarSesion);
+  </script>
+</body>
+</html>

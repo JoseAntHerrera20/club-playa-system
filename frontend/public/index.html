@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club de Playa - Inicio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: #333; }
+    a { text-decoration: none; color: inherit; }
+
+    header {
+      background: #007bff;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header img { height: 50px; }
+    nav a { margin-left: 20px; font-weight: bold; }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('img/palapa.jpg') no-repeat center;
+      background-size: cover;
+      color: white;
+    }
+    .hero h1 { font-size: 2.8rem; margin-bottom: 15px; }
+    .hero p { font-size: 1.2rem; margin-bottom: 25px; }
+    .btn-hero {
+      background: #ffcc00;
+      color: #333;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn-hero:hover { background: #e6b800; }
+
+    section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+    h2 { text-align: center; font-size: 2rem; margin-bottom: 40px; }
+
+    .servicios-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .servicio {
+      background: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .servicio:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+    .servicio img { width: 100%; height: 200px; object-fit: cover; }
+    .servicio .contenido { padding: 15px; }
+    .servicio .contenido h3 { margin-bottom: 10px; color: #007bff; }
+    .servicio .contenido p { font-size: 0.95rem; color: #555; }
+
+    footer {
+      background: #333;
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
+    footer img { height: 40px; margin-bottom: 10px; }
+
+    @media(max-width: 768px){
+      .servicios-container { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="img/logo.png" alt="Logo Club de Playa">
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="login.html">Reservar</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Bienvenido al Club de Playa</h1>
+    <p>Relájate, disfruta y reserva tu espacio ideal con nosotros.</p>
+    <a href="login.html" class="btn-hero">Reservar Ahora</a>
+  </section>
+
+  <section id="servicios">
+    <h2>Nuestros Servicios</h2>
+    <div class="servicios-container">
+      <div class="servicio">
+        <img src="img/palapa.jpg" alt="Palapa">
+        <div class="contenido">
+          <h3>Palapas</h3>
+          <p>Espacios techados ideales para descansar frente al mar con sombra y comodidad.</p>
+        </div>
+      </div>
+      <div class="servicio">
+        <img src="img/camastro.jpg" alt="Camastro">
+        <div class="contenido">
+          <h3>Camastros</h3>
+          <p>Relájate al sol con nuestros cómodos camastros, perfectos para disfrutar la playa.</p>
+        </div>
+      </div>
+      <div class="servicio">
+        <img src="img/cabana.jpg" alt="Cabaña">
+        <div class="contenido">
+          <h3>Cabañas</h3>
+          <p>Disfruta de nuestras cabañas privadas, equipadas para tu comodidad y privacidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <h2>Quiénes Somos</h2>
+    <p style="text-align:center; max-width:700px; margin:0 auto;">
+      Somos un club de playa dedicado a ofrecer experiencias inolvidables frente al mar. Brindamos comodidad, seguridad y diversión para toda la familia.
+    </p>
+  </section>
+
+  <footer>
+    <img src="img/logo.png" alt="Logo Club de Playa">
+    <p>© 2025 Club de Playa. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>
