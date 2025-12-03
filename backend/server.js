@@ -9,14 +9,13 @@ const sql = require('mssql');
 const app = express();
 
 // =========================
-// CORS CONFIGURADO PARA FRONTEND
+// CORS CONFIGURADO PARA FRONTEND EN AZURE
 // =========================
 const corsOptions = {
   origin: 'https://jolly-water-0b1eea10f.3.azurestaticapps.net', // tu frontend
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type','Authorization']
 };
-
 app.use(cors(corsOptions));
 
 // Habilitar preflight para todas las rutas
