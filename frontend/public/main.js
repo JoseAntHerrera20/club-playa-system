@@ -1,5 +1,5 @@
 // URL de backend
-const BACKEND_URL = 'https://clubplaya-backend-hyarhmbfgbhfaze9.canadacentral-01.azurewebsites.net';
+const BACKEND_URL = 'https://clubplaya-backend2-h4hse2fze5decze4.canadacentral-01.azurewebsites.net';
 
 // ===== TOKEN =====
 function guardarToken(token){ localStorage.setItem('token', token); }
