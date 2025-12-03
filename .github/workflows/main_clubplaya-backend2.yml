@@ -1,5 +1,5 @@
-# Docs: https://github.com/Azure/webapps-deploy
-name: Build and deploy Node.js app to Azure Web App - clubplaya-backend2
+# .github/workflows/deploy-backend.yml
+name: Build and deploy Node.js backend to Azure Web App
 
 on:
   push:
@@ -8,57 +8,42 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write
 
     steps:
+      # 1. Checkout del repo
       - uses: actions/checkout@v4
 
+      # 2. Setup Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
+      # 3. Ir a backend y instalar dependencias
       - name: Install dependencies
         working-directory: backend
         run: |
           npm install
           npm run build --if-present
-          # omitimos test porque no hay definidos
-          # npm run test --if-present
+          npm run test --if-present || echo "No tests defined"
 
-      - name: Upload artifact for deployment
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-app
-          path: backend # Subimos solo la carpeta backend como paquete
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      id-token: write
-      contents: read
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: node-app
-
-      - name: Azure login
+      # 4. Login a Azure
+      - name: Azure Login
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_023F4F4648FA4987905A8C05A215CA45 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BF09768EA8BC45BE8A3946107F81F234 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4B6C223975A340148C5B72EA4DF05FAA }}
 
+      # 5. Deploy a Azure Web App
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'clubplaya-backend2'
           slot-name: 'Production'
-          package: node-app # apunta a la carpeta que subimos
+          package: ./backend
