@@ -7,7 +7,19 @@ const { getPool } = require('./db'); // <-- USAR AZURE
 const sql = require('mssql');
 
 const app = express();
-app.use(cors());
+
+// =========================
+// CORS CONFIGURADO PARA FRONTEND
+// =========================
+app.use(cors({
+  origin: 'https://jolly-water-0b1eea10f.3.azurestaticapps.net', // tu frontend
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Habilitar preflight para todas las rutas
+app.options('*', cors());
+
 app.use(express.json());
 
 // -------------------------
